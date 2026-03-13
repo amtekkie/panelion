@@ -12,7 +12,7 @@ PANELION_USER="panelion"
 PANELION_PORT=2083
 PANEL_DB="panelion"
 PANEL_DB_USER="panelion"
-GITHUB_REPO="https://github.com/PanelionProject/panelion.git"
+GITHUB_REPO="https://github.com/amtekkie/panelion.git"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'

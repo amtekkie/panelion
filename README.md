@@ -1,6 +1,8 @@
 # Panelion — Web Hosting Control Panel
 
-A feature-rich, open-source web hosting control panel built in PHP. Manage domains, databases, email, DNS, SSL, applications, and more — all from a modern web interface.
+A feature-rich web hosting control panel built in PHP. Manage domains, databases, email, DNS, SSL, applications, and more — all from a modern web interface.
+
+**Panelion** is a proprietary product by [Tektove](https://tektove.com). Licenses are available at [tektove.com](https://tektove.com).
 
 ## Features
 
@@ -18,13 +20,22 @@ A feature-rich, open-source web hosting control panel built in PHP. Manage domai
 - **Reverse Proxy** — Automatic Nginx reverse proxy configuration
 - **Environment Variables** — Per-application environment configuration
 
+### File Manager
+- **Monaco Code Editor** — VS Code-style editor with syntax highlighting for 20+ languages, minimap, word wrap, Ctrl+S save
+- **Drag & Drop Upload** — Recursive folder upload with progress tracking
+- **Right-Click Context Menu** — Open, edit, download, rename, copy path, compress, extract, permissions, delete
+- **Permissions Manager** — Octal permissions editor with recursive option
+- **Archive Support** — Compress and extract zip/tar.gz/tar.bz2 archives
+
 ### Server Administration
-- **File Manager** — Web-based file browser with code editor, upload, compress/extract, permissions
+- **PHP Manager** — Install/remove PHP modules per version, set default PHP version, manage PHP-FPM services
+- **Multi-PHP Support** — PHP 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 installed side-by-side with all common extensions
 - **Backup System** — Full/incremental backups, scheduling (daily/weekly/monthly), restore, download
 - **Firewall** — UFW/iptables/firewalld management, IP blocking with expiry
 - **Server Monitoring** — Real-time CPU, memory, disk, load average, process list, network stats
 - **Cron Job Manager** — Schedule management with presets and cron expression editor
 - **Log Viewer** — System, web server, mail, and application logs
+- **Roundcube Webmail** — Integrated webmail access for email users
 
 ### Security
 - **Two-Factor Authentication** — TOTP-based 2FA
@@ -35,7 +46,8 @@ A feature-rich, open-source web hosting control panel built in PHP. Manage domai
 - **Secure Sessions** — HttpOnly, Secure, SameSite cookies
 
 ### Administration
-- **Multi-User Support** — Admin and user roles with permission-based access
+- **Multi-User Support** — Admin, reseller, and user roles with group-based permissions
+- **User Groups** — Configurable permission sets (admin, reseller, user) with JSON permission definitions
 - **Hosting Packages** — Configurable resource limits per user
 - **API Access** — REST API with Bearer token and API key authentication
 - **Service Manager** — Start/stop/restart system services from the panel
@@ -56,7 +68,7 @@ A feature-rich, open-source web hosting control panel built in PHP. Manage domai
 
 ```bash
 # Download and run the installer
-git clone https://github.com/your-repo/panelion.git /usr/local/panelion
+git clone https://github.com/amtekkie/panelion.git /usr/local/panelion
 cd /usr/local/panelion
 chmod +x install.sh
 sudo ./install.sh
@@ -64,7 +76,7 @@ sudo ./install.sh
 
 The installer will:
 1. Detect your OS (Ubuntu/Debian/CentOS/AlmaLinux/Rocky)
-2. Install Nginx, PHP 8.2, MariaDB, and optional services
+2. Install Nginx, PHP (7.4–8.4), MariaDB, and optional services (BIND, Postfix, Dovecot, vsftpd, Certbot, Roundcube)
 3. Create the database and import the schema
 4. Generate a self-signed SSL certificate
 5. Configure the firewall
@@ -85,7 +97,7 @@ The installer will:
 
 2. **Clone the repository:**
    ```bash
-   sudo git clone https://github.com/your-repo/panelion.git /usr/local/panelion
+   sudo git clone https://github.com/amtekkie/panelion.git /usr/local/panelion
    ```
 
 3. **Create the database:**
@@ -207,3 +219,9 @@ curl -X POST https://server:2083/api.php/domains \
 5. **Keep the system updated** with regular OS and package updates
 6. **Review firewall rules** and only allow necessary ports
 7. **Enable automatic backups** with off-site storage
+
+## License
+
+Panelion is proprietary software developed by **Tektove**. All rights reserved.
+
+Licenses can be purchased at [tektove.com](https://tektove.com). Unauthorized copying, modification, distribution, or use of this software is strictly prohibited without a valid license.
