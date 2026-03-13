@@ -89,4 +89,14 @@ return [
         'redis' => true,
         'sqlite' => true,
     ],
+
+    // License (FMZ License Manager)
+    'license' => [
+        'api_base' => 'https://tektove.com/wp-json/fmz-license/v1',
+        'product_slug' => 'panelion',
+        'product_url' => 'https://tektove.com/shop/saas/panelion/',
+        'check_interval' => 86400,   // Re-verify with API every 24 hours
+        'grace_period' => 604800,    // Trust cache for 7 days if API unreachable
+        'public_key' => null,        // Set to PEM string or leave null to use built-in key
+    ],
 ];

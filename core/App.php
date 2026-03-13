@@ -253,6 +253,17 @@ class App
         $this->router->post('/settings/php/module/install', 'Settings\\SettingsController@installPhpModule');
         $this->router->post('/settings/php/module/remove', 'Settings\\SettingsController@removePhpModule');
         $this->router->get('/settings/php/modules', 'Settings\\SettingsController@phpModulesApi');
+
+        // License
+        $this->router->get('/license', 'License\\LicenseController@index');
+        $this->router->post('/license/activate', 'License\\LicenseController@activate');
+        $this->router->post('/license/deactivate', 'License\\LicenseController@deactivate');
+        $this->router->get('/license/status', 'License\\LicenseController@status');
+        $this->router->get('/license/version', 'License\\LicenseController@versionCheck');
+
+        // License management in Settings
+        $this->router->get('/settings/license', 'Settings\\SettingsController@license');
+        $this->router->post('/settings/license/deactivate', 'Settings\\SettingsController@deactivateLicense');
     }
 
     public function run(): void
@@ -266,6 +277,16 @@ class App
         if (!in_array($route, $publicRoutes) && !$this->auth->check()) {
             header('Location: ' . $this->url('/login'));
             exit;
+        }
+
+        // License gate — block all features until a valid license is active
+        $licenseExemptRoutes = ['/login', '/two-factor', '/logout', '/license', '/license/activate', '/license/status', '/license/version'];
+        if (!in_array($route, $licenseExemptRoutes) && $this->auth->check()) {
+            $license = new License($this->db, PANELION_ROOT);
+            if (!$license->isValid()) {
+                header('Location: ' . $this->url('/license'));
+                exit;
+            }
         }
 
         try {

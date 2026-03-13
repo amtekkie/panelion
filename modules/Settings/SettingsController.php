@@ -6,6 +6,7 @@ use Panelion\Core\Database;
 use Panelion\Core\SystemCommand;
 use Panelion\Core\Logger;
 use Panelion\Core\Security;
+use Panelion\Core\License;
 
 class SettingsController extends Controller
 {
@@ -505,5 +506,34 @@ class SettingsController extends Controller
             'installed' => array_values($installed),
             'available' => $available,
         ];
+    }
+
+    // ── License Management ──
+
+    public function license()
+    {
+        $this->requireAdmin();
+
+        $license = new License($this->db, PANELION_ROOT);
+        $licenseData = $license->getLicenseData();
+
+        $this->view('settings.license', [
+            'pageTitle' => 'License',
+            'licenseData' => $licenseData,
+            'domain' => License::getServerDomain(),
+            'isValid' => $license->isValid(),
+        ]);
+    }
+
+    public function deactivateLicense()
+    {
+        $this->requireAdmin();
+        $this->validateCSRF();
+
+        $license = new License($this->db, PANELION_ROOT);
+        $license->deactivate();
+
+        header('Location: ' . $this->app->url('/settings/license'));
+        exit;
     }
 }
