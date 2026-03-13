@@ -114,36 +114,68 @@ install_nginx() {
     log_info "Nginx installed."
 }
 
-# ── Install PHP ──
+# ── Install PHP (multiple versions) ──
 install_php() {
-    log_step "Installing PHP 8.2..."
+    log_step "Installing PHP versions (7.4, 8.0, 8.1, 8.2, 8.3, 8.4)..."
+
+    PHP_VERSIONS="7.4 8.0 8.1 8.2 8.3 8.4"
+    PANELION_PHP="8.2"
 
     if [ "$OS_FAMILY" = "debian" ]; then
-        # Add PHP PPA for latest versions
+        # Add PHP PPA for multiple versions
         add-apt-repository -y ppa:ondrej/php 2>/dev/null || true
         apt-get update -y
-        $PKG_INSTALL \
-            php8.2-fpm php8.2-cli php8.2-mysql php8.2-pgsql php8.2-sqlite3 \
-            php8.2-mbstring php8.2-xml php8.2-curl php8.2-zip php8.2-gd \
-            php8.2-intl php8.2-bcmath php8.2-soap php8.2-redis php8.2-imagick \
-            php8.2-imap php8.2-ldap php8.2-opcache php8.2-readline
-        PHP_FPM_SERVICE="php8.2-fpm"
-        PHP_FPM_SOCK="/run/php/php8.2-fpm.sock"
+
+        for VER in $PHP_VERSIONS; do
+            log_info "Installing PHP ${VER}..."
+            $PKG_INSTALL \
+                php${VER}-fpm php${VER}-cli php${VER}-common \
+                php${VER}-mysql php${VER}-pgsql php${VER}-sqlite3 \
+                php${VER}-mbstring php${VER}-xml php${VER}-curl php${VER}-zip \
+                php${VER}-gd php${VER}-intl php${VER}-bcmath php${VER}-soap \
+                php${VER}-redis php${VER}-imagick php${VER}-imap php${VER}-ldap \
+                php${VER}-opcache php${VER}-readline php${VER}-tokenizer \
+                php${VER}-fileinfo php${VER}-ctype php${VER}-dom php${VER}-pdo \
+                2>/dev/null || log_warn "Some PHP ${VER} packages unavailable."
+
+            systemctl enable php${VER}-fpm 2>/dev/null || true
+            systemctl start php${VER}-fpm 2>/dev/null || true
+        done
+
+        PHP_FPM_SERVICE="php${PANELION_PHP}-fpm"
+        PHP_FPM_SOCK="/run/php/php${PANELION_PHP}-fpm.sock"
+
     else
         $PKG_INSTALL https://rpms.remirepo.net/enterprise/remi-release-$(rpm -E %{rhel}).rpm 2>/dev/null || true
-        dnf module reset php -y 2>/dev/null || true
-        dnf module enable php:remi-8.2 -y 2>/dev/null || true
-        $PKG_INSTALL \
-            php php-fpm php-cli php-mysqlnd php-pgsql php-mbstring \
-            php-xml php-curl php-zip php-gd php-intl php-bcmath \
-            php-soap php-redis php-imagick php-imap php-ldap php-opcache
+
+        for VER in $PHP_VERSIONS; do
+            REMI_VER=$(echo $VER | tr -d '.')
+            log_info "Installing PHP ${VER} (remi-${REMI_VER})..."
+            dnf module reset php -y 2>/dev/null || true
+            dnf module enable php:remi-${REMI_VER} -y 2>/dev/null || true
+            $PKG_INSTALL \
+                php${REMI_VER}-php-fpm php${REMI_VER}-php-cli php${REMI_VER}-php-common \
+                php${REMI_VER}-php-mysqlnd php${REMI_VER}-php-pgsql php${REMI_VER}-php-mbstring \
+                php${REMI_VER}-php-xml php${REMI_VER}-php-curl php${REMI_VER}-php-zip \
+                php${REMI_VER}-php-gd php${REMI_VER}-php-intl php${REMI_VER}-php-bcmath \
+                php${REMI_VER}-php-soap php${REMI_VER}-php-redis php${REMI_VER}-php-imagick \
+                php${REMI_VER}-php-imap php${REMI_VER}-php-ldap php${REMI_VER}-php-opcache \
+                2>/dev/null || log_warn "Some PHP ${VER} packages unavailable."
+
+            systemctl enable php${REMI_VER}-php-fpm 2>/dev/null || true
+            systemctl start php${REMI_VER}-php-fpm 2>/dev/null || true
+        done
+
         PHP_FPM_SERVICE="php-fpm"
         PHP_FPM_SOCK="/run/php-fpm/www.sock"
     fi
 
-    systemctl enable $PHP_FPM_SERVICE
-    systemctl start $PHP_FPM_SERVICE
-    log_info "PHP installed."
+    # Set default PHP CLI version
+    if [ "$OS_FAMILY" = "debian" ]; then
+        update-alternatives --set php /usr/bin/php${PANELION_PHP} 2>/dev/null || true
+    fi
+
+    log_info "PHP versions installed. Default: PHP ${PANELION_PHP}"
 }
 
 # ── Install MariaDB ──

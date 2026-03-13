@@ -12,7 +12,7 @@
             <div class="card-header"><h5 class="mb-0"><i class="bi bi-gear me-2"></i>General Settings</h5></div>
             <div class="card-body">
                 <form method="POST" action="/settings">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                     <input type="hidden" name="group" value="general">
                     <div class="mb-3">
                         <label class="form-label">Panel Name</label>
@@ -46,7 +46,7 @@
             <div class="card-header"><h5 class="mb-0"><i class="bi bi-shield-check me-2"></i>Security Settings</h5></div>
             <div class="card-body">
                 <form method="POST" action="/settings">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                     <input type="hidden" name="group" value="security">
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -80,7 +80,7 @@
             <div class="card-header"><h5 class="mb-0"><i class="bi bi-envelope me-2"></i>Notification Settings</h5></div>
             <div class="card-body">
                 <form method="POST" action="/settings">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                     <input type="hidden" name="group" value="notifications">
                     <div class="mb-3">
                         <label class="form-label">Admin Email</label>
@@ -126,6 +126,7 @@
         <div class="card mb-4">
             <div class="card-header"><h5 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Actions</h5></div>
             <div class="card-body d-grid gap-2">
+                <a href="/settings/php" class="btn btn-outline-info"><i class="bi bi-filetype-php me-1"></i>PHP Manager</a>
                 <a href="/monitoring" class="btn btn-outline-primary"><i class="bi bi-speedometer2 me-1"></i>Server Monitoring</a>
                 <a href="/monitoring/logs" class="btn btn-outline-secondary"><i class="bi bi-journal-text me-1"></i>View Logs</a>
                 <a href="/firewall" class="btn btn-outline-warning"><i class="bi bi-shield me-1"></i>Firewall</a>
@@ -165,7 +166,7 @@ function svcAction(service, action) {
     if (!confirm(`${action} ${service}?`)) return;
     Panelion.ajax('/settings/services/action', {
         method: 'POST',
-        data: { service, action, csrf_token: '<?= $_SESSION['csrf_token'] ?>' }
+        data: { service, action, csrf_token: '<?= $csrf_token ?>' }
     }).then(r => {
         Panelion.toast(r.message, r.success ? 'success' : 'danger');
         setTimeout(() => location.reload(), 1500);

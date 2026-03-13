@@ -17,15 +17,6 @@
                         <small class="text-muted">Enter the domain without www. (e.g., example.com)</small>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">PHP Version</label>
-                        <select name="php_version" class="form-select">
-                            <?php foreach ($phpVersions as $v): ?>
-                                <option value="<?= $v ?>" <?= $v === '8.2' ? 'selected' : '' ?>>PHP <?= $v ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
                     <div class="alert alert-info">
                         <i class="bi bi-info-circle me-2"></i>
                         <strong>DNS Configuration:</strong> Point your domain's A record to this server's IP address.

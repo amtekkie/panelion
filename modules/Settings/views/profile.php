@@ -12,7 +12,7 @@
             <div class="card-header"><h5 class="mb-0"><i class="bi bi-person me-2"></i>Account Information</h5></div>
             <div class="card-body">
                 <form method="POST" action="/settings/profile">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Username</label>
@@ -61,7 +61,7 @@
                             <p class="text-muted mt-2 mb-0">Your account is protected with two-factor authentication.</p>
                         </div>
                         <form method="POST" action="/settings/2fa/disable" onsubmit="return confirm('Disable 2FA? This will reduce your account security.')">
-                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                             <button type="submit" class="btn btn-outline-danger"><i class="bi bi-shield-x me-1"></i>Disable 2FA</button>
                         </form>
                     </div>
@@ -78,7 +78,7 @@
                             <p class="text-muted mt-2 mb-0">Enable two-factor authentication for extra security.</p>
                         </div>
                         <form method="POST" action="/settings/2fa/enable">
-                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                             <button type="submit" class="btn btn-success"><i class="bi bi-shield-check me-1"></i>Enable 2FA</button>
                         </form>
                     </div>
@@ -95,7 +95,7 @@
             <div class="collapse" id="addToken">
                 <div class="card-body border-bottom bg-light">
                     <form method="POST" action="/settings/api-tokens" class="row g-2 align-items-end">
-                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                        <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                         <div class="col-8">
                             <label class="form-label">Token Name</label>
                             <input type="text" class="form-control" name="name" required placeholder="deployment, monitoring, cli...">
@@ -121,7 +121,7 @@
                                         <td><small><?= $token['last_used_at'] ? date('M j, Y g:i A', strtotime($token['last_used_at'])) : 'Never' ?></small></td>
                                         <td>
                                             <form method="POST" action="/settings/api-tokens/<?= $token['id'] ?>/delete" onsubmit="return confirm('Delete this token?')">
-                                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                                                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                                                 <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                                             </form>
                                         </td>

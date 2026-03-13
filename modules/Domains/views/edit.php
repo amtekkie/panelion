@@ -12,14 +12,6 @@
             <label class="form-label">Document Root</label>
             <input type="text" class="form-control" value="<?= htmlspecialchars($domain['document_root']) ?>" disabled>
         </div>
-        <div class="mb-3">
-            <label class="form-label">PHP Version</label>
-            <select name="php_version" class="form-select">
-                <?php foreach ($phpVersions as $v): ?>
-                    <option value="<?= $v ?>" <?= $v === $domain['php_version'] ? 'selected' : '' ?>>PHP <?= $v ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
         <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-2"></i>Update</button>
         <a href="/domains" class="btn btn-secondary ms-2">Cancel</a>
     </form>

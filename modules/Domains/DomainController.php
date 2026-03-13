@@ -32,7 +32,6 @@ class DomainController extends Controller
     public function create(array $params = []): void
     {
         $this->view('Domains/views/create', [
-            'phpVersions' => $this->app->config('runtimes.php', []),
             'pageTitle' => 'Add Domain',
             'breadcrumbs' => [['label' => 'Domains', 'url' => '/domains'], ['label' => 'Add', 'active' => true]],
         ]);
@@ -47,7 +46,10 @@ class DomainController extends Controller
 
         $user = $this->app->auth()->user();
         $domain = strtolower(trim($_POST['domain'] ?? ''));
-        $phpVersion = $_POST['php_version'] ?? '8.2';
+
+        // Use server default PHP version from settings
+        $defaultPhp = $this->app->db()->fetch("SELECT `value` FROM settings WHERE `key` = 'default_php'");
+        $phpVersion = $defaultPhp ? $defaultPhp['value'] : '8.2';
 
         if (!Security::validateDomain($domain)) {
             $this->app->session()->flash('error', 'Invalid domain name.');
@@ -115,7 +117,6 @@ class DomainController extends Controller
 
         $this->view('Domains/views/edit', [
             'domain' => $domain,
-            'phpVersions' => $this->app->config('runtimes.php', []),
             'pageTitle' => "Edit: {$domain['domain']}",
             'breadcrumbs' => [['label' => 'Domains', 'url' => '/domains'], ['label' => 'Edit', 'active' => true]],
         ]);
@@ -135,10 +136,10 @@ class DomainController extends Controller
             return;
         }
 
-        $phpVersion = $_POST['php_version'] ?? $domain['php_version'];
+        // Regenerate vhost config with current default PHP
+        $defaultPhp = $this->app->db()->fetch("SELECT `value` FROM settings WHERE `key` = 'default_php'");
+        $phpVersion = $defaultPhp ? $defaultPhp['value'] : ($domain['php_version'] ?? '8.2');
         $this->app->db()->update('domains', ['php_version' => $phpVersion], 'id = ?', [$id]);
-
-        // Regenerate vhost config
         $this->generateVhostConfig($domain['domain'], $domain['document_root'], $phpVersion);
 
         $this->app->session()->flash('success', 'Domain updated successfully.');

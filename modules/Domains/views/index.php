@@ -15,7 +15,6 @@
                         <th>Domain</th>
                         <th>Type</th>
                         <th>Document Root</th>
-                        <th>PHP</th>
                         <th>SSL</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -23,7 +22,7 @@
                 </thead>
                 <tbody>
                     <?php if (empty($domains)): ?>
-                        <tr><td colspan="7" class="text-center text-muted py-4">No domains configured.</td></tr>
+                        <tr><td colspan="6" class="text-center text-muted py-4">No domains configured.</td></tr>
                     <?php else: ?>
                         <?php foreach ($domains as $d): ?>
                         <tr>
@@ -36,7 +35,6 @@
                             </td>
                             <td><span class="badge bg-secondary"><?= $d['type'] ?></span></td>
                             <td><code class="small"><?= htmlspecialchars($d['document_root']) ?></code></td>
-                            <td><?= htmlspecialchars($d['php_version']) ?></td>
                             <td>
                                 <?php if ($d['ssl_enabled']): ?>
                                     <i class="bi bi-lock-fill text-success" title="SSL Active"></i>

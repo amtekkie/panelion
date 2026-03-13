@@ -245,6 +245,14 @@ class App
         $this->router->post('/settings/api-tokens', 'Settings\\SettingsController@createApiToken');
         $this->router->post('/settings/api-tokens/{id}/delete', 'Settings\\SettingsController@deleteApiToken');
         $this->router->get('/settings/services', 'Settings\\SettingsController@services');
+        $this->router->post('/settings/services/action', 'Settings\\SettingsController@serviceAction');
+
+        // PHP Manager (Admin)
+        $this->router->get('/settings/php', 'Settings\\SettingsController@phpManager');
+        $this->router->post('/settings/php/default', 'Settings\\SettingsController@setDefaultPhp');
+        $this->router->post('/settings/php/module/install', 'Settings\\SettingsController@installPhpModule');
+        $this->router->post('/settings/php/module/remove', 'Settings\\SettingsController@removePhpModule');
+        $this->router->get('/settings/php/modules', 'Settings\\SettingsController@phpModulesApi');
     }
 
     public function run(): void

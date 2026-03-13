@@ -72,7 +72,7 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <a href="/webserver/php" class="btn btn-outline-primary btn-sm mt-3"><i class="bi bi-gear me-1"></i>PHP Configuration</a>
+                <a href="/settings/php" class="btn btn-outline-primary btn-sm mt-3"><i class="bi bi-gear me-1"></i>PHP Manager</a>
             </div>
         </div>
     </div>
