@@ -1,0 +1,41 @@
+# Environment
+.env
+*.env.*
+
+# Storage
+storage/logs/*
+storage/cache/*
+storage/sessions/*
+storage/backups/*
+storage/users/*
+!storage/logs/.gitkeep
+!storage/cache/.gitkeep
+!storage/sessions/.gitkeep
+!storage/backups/.gitkeep
+!storage/users/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies
+vendor/
+node_modules/
+
+# Compiled
+*.pyc
+__pycache__/
+
+# Temporary
+*.tmp
+*.bak
+*.old
+*.orig

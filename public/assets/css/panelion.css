@@ -1,0 +1,465 @@
+/* ========================================
+   Panelion - Web Hosting Control Panel
+   Main Stylesheet
+   ======================================== */
+
+:root {
+    --pn-primary: #4361ee;
+    --pn-primary-dark: #3651d4;
+    --pn-secondary: #6c757d;
+    --pn-success: #2ecc71;
+    --pn-danger: #e74c3c;
+    --pn-warning: #f39c12;
+    --pn-info: #3498db;
+    --pn-dark: #1a1d23;
+    --pn-sidebar: #1e2128;
+    --pn-sidebar-hover: #2a2e37;
+    --pn-body-bg: #f4f6f9;
+    --pn-card-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+    --pn-transition: all 0.2s ease-in-out;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--pn-body-bg);
+    color: #333;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Authentication Pages
+   ======================================== */
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--pn-dark) 0%, #2c3e50 100%);
+}
+
+.auth-wrapper .card {
+    border-radius: 12px;
+}
+
+/* ========================================
+   Sidebar
+   ======================================== */
+
+#sidebar-wrapper {
+    background: var(--pn-sidebar) !important;
+    transition: margin 0.25s ease-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+#sidebar-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    margin-left: 260px;
+    min-height: 100vh;
+    transition: margin 0.25s ease-out;
+}
+
+.sidebar-heading {
+    background: rgba(0,0,0,0.2);
+}
+
+#sidebar-wrapper .list-group-item {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    transition: var(--pn-transition);
+    border-radius: 0;
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background: var(--pn-sidebar-hover) !important;
+    padding-left: 1.5rem;
+}
+
+#sidebar-wrapper .list-group-item.active-menu {
+    background: var(--pn-primary) !important;
+    color: white !important;
+    border-left: 3px solid #fff;
+}
+
+#sidebar-wrapper .list-group-item i {
+    width: 22px;
+    text-align: center;
+}
+
+/* Sidebar collapsed */
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -260px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    margin-left: 0;
+}
+
+/* ========================================
+   Top Navbar
+   ======================================== */
+
+.navbar {
+    box-shadow: var(--pn-card-shadow);
+}
+
+.avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--pn-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* ========================================
+   Cards & Stat Widgets
+   ======================================== */
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: var(--pn-card-shadow);
+    transition: var(--pn-transition);
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card .stat-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2.5rem;
+    opacity: 0.15;
+}
+
+.stat-card .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.stat-card .stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.stat-card.bg-primary { background: linear-gradient(135deg, #4361ee, #3a56d4) !important; }
+.stat-card.bg-success { background: linear-gradient(135deg, #2ecc71, #27ae60) !important; }
+.stat-card.bg-info { background: linear-gradient(135deg, #3498db, #2980b9) !important; }
+.stat-card.bg-warning { background: linear-gradient(135deg, #f39c12, #e67e22) !important; }
+.stat-card.bg-danger { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; }
+.stat-card.bg-purple { background: linear-gradient(135deg, #9b59b6, #8e44ad) !important; }
+.stat-card.bg-teal { background: linear-gradient(135deg, #1abc9c, #16a085) !important; }
+.stat-card.bg-pink { background: linear-gradient(135deg, #e91e63, #c2185b) !important; }
+
+/* ========================================
+   Quick Actions Grid
+   ======================================== */
+
+.quick-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: var(--pn-transition);
+    background: white;
+    border: 1px solid #eee;
+}
+
+.quick-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: var(--pn-primary);
+    border-color: var(--pn-primary);
+}
+
+.quick-action i {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--pn-primary);
+}
+
+.quick-action span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ========================================
+   Tables
+   ======================================== */
+
+.table-hover tbody tr:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+}
+
+.table th {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    border-bottom-width: 1px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* ========================================
+   Badges & Status
+   ======================================== */
+
+.badge-status {
+    padding: 0.35em 0.75em;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-active { background: #d4edda; color: #155724; }
+.status-suspended { background: #f8d7da; color: #721c24; }
+.status-pending { background: #fff3cd; color: #856404; }
+.status-running { background: #d4edda; color: #155724; }
+.status-stopped { background: #f8d7da; color: #721c24; }
+.status-error { background: #f8d7da; color: #721c24; }
+
+/* ========================================
+   Progress Bars
+   ======================================== */
+
+.usage-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: #e9ecef;
+    overflow: hidden;
+}
+
+.usage-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+.usage-bar-fill.low { background: var(--pn-success); }
+.usage-bar-fill.medium { background: var(--pn-warning); }
+.usage-bar-fill.high { background: var(--pn-danger); }
+
+/* ========================================
+   File Manager
+   ======================================== */
+
+.file-item {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: var(--pn-transition);
+}
+
+.file-item:hover {
+    background: rgba(67, 97, 238, 0.05);
+}
+
+.file-item.selected {
+    background: rgba(67, 97, 238, 0.1);
+}
+
+.file-icon {
+    width: 28px;
+    text-align: center;
+}
+
+/* ========================================
+   Code Editor
+   ======================================== */
+
+.code-editor {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 1rem;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 8px;
+    min-height: 400px;
+    resize: vertical;
+    border: none;
+    width: 100%;
+}
+
+/* ========================================
+   Terminal
+   ======================================== */
+
+.terminal-output {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    background: #1e1e1e;
+    color: #00ff00;
+    padding: 1rem;
+    border-radius: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: -260px;
+    }
+
+    #page-content-wrapper {
+        margin-left: 0;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.4rem;
+    }
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+
+.btn-primary {
+    background: var(--pn-primary);
+    border-color: var(--pn-primary);
+}
+
+.btn-primary:hover {
+    background: var(--pn-primary-dark);
+    border-color: var(--pn-primary-dark);
+}
+
+.btn-outline-primary {
+    color: var(--pn-primary);
+    border-color: var(--pn-primary);
+}
+
+.btn-outline-primary:hover {
+    background: var(--pn-primary);
+    border-color: var(--pn-primary);
+}
+
+/* ========================================
+   Forms
+   ======================================== */
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--pn-primary);
+    box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   Service Status Indicator
+   ======================================== */
+
+.service-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.service-status.online { background: var(--pn-success); box-shadow: 0 0 6px rgba(46, 204, 113, 0.6); }
+.service-status.offline { background: var(--pn-danger); box-shadow: 0 0 6px rgba(231, 76, 60, 0.6); }
+.service-status.warning { background: var(--pn-warning); box-shadow: 0 0 6px rgba(243, 156, 18, 0.6); }
+
+/* ========================================
+   Charts
+   ======================================== */
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* ========================================
+   Utilities
+   ======================================== */
+
+.text-primary { color: var(--pn-primary) !important; }
+.bg-primary { background-color: var(--pn-primary) !important; }
+
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-header h2 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.page-header p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 1rem;
+}
+
+.empty-state h5 {
+    color: #6c757d;
+}
+
+.empty-state p {
+    color: #adb5bd;
+}
