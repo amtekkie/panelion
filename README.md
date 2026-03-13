@@ -207,7 +207,3 @@ curl -X POST https://server:2083/api.php/domains \
 5. **Keep the system updated** with regular OS and package updates
 6. **Review firewall rules** and only allow necessary ports
 7. **Enable automatic backups** with off-site storage
-
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.
